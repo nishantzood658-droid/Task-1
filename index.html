@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Assignment Dashboard - NISHANT SINGH ZOOD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .page-content, .sub-tab-content { display: none; }
+        .page-content.active, .sub-tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Sidebar active state */
+        .nav-btn.active { background-color: #fef9c3; color: #a16207; border-left-color: #ca8a04; font-weight: 700; }
+        
+        /* Inner tab active state */
+        .inner-tab.active { border-bottom-color: #ca8a04; color: #a16207; font-weight: 700; background-color: #fffbeb; }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); transition: all 0.2s; }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden text-slate-800 font-sans">
+
+    <!-- Sidebar Main Navigation -->
+    <aside class="w-72 bg-white border-r border-gray-200 flex flex-col h-full z-20 shrink-0">
+        <!-- Student Profile -->
+        <div class="p-6 border-b border-gray-100 bg-gradient-to-b from-yellow-50/80 to-white">
+            <div class="flex items-center gap-4">
+                <div class="h-14 w-14 rounded-full bg-gradient-to-br from-yellow-600 to-amber-800 text-white flex items-center justify-center font-bold text-2xl shadow-md border-2 border-white">NSZ</div>
+                <div>
+                    <h2 class="font-bold text-gray-900 leading-tight">NISHANT SINGH ZOOD</h2>
+                    <p class="text-xs text-yellow-700 font-semibold bg-yellow-100/50 inline-block px-2 py-0.5 rounded mt-1">Roll No: 1826064</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-1">BPT • 1st Year</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Main Modules (9 Pages)</div>
+        
+        <nav class="flex-1 overflow-y-auto px-3 pb-6 space-y-1">
+            <button onclick="switchPage('home')" id="btn-home" class="nav-btn active w-full text-left px-4 py-3 rounded-lg border-l-4 border-yellow-600 bg-yellow-50 text-yellow-700 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-house w-5 text-center"></i> Dashboard Home
+            </button>
+            <button onclick="switchPage('q1')" id="btn-q1" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-microchip w-5 text-center"></i> Q1: Computer & Generations
+            </button>
+            <button onclick="switchPage('q2')" id="btn-q2" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-network-wired w-5 text-center"></i> Q2: Architecture Block Diagram
+            </button>
+            <button onclick="switchPage('q3')" id="btn-q3" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-id-card-clip w-5 text-center"></i> Q3: Campus Automation (I/O)
+            </button>
+            <button onclick="switchPage('q4')" id="btn-q4" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-code w-5 text-center"></i> Q4: Programming Languages
+            </button>
+            <button onclick="switchPage('q5')" id="btn-q5" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-pen-nib w-5 text-center"></i> Q5: Digitizers vs Pointing
+            </button>
+            <button onclick="switchPage('q6')" id="btn-q6" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-print w-5 text-center"></i> Q6: Plotters vs Printers
+            </button>
+            <button onclick="switchPage('q7')" id="btn-q7" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-face-viewfinder w-5 text-center"></i> Q7: Biometric Security
+            </button>
+            <button onclick="switchPage('q8')" id="btn-q8" class="nav-btn w-full text-left px-4 py-3 rounded-lg border-l-4 border-transparent text-gray-600 hover:bg-gray-50 text-sm font-medium transition-all flex items-center gap-3">
+                <i class="fa-solid fa-universal-access w-5 text-center"></i> Q8: Accessible Workstation
+            </button>
+        </nav>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="flex-1 flex flex-col h-full bg-[#fffbeb] relative min-w-0">
+        
+        <!-- Top App Header -->
+        <header class="bg-white border-b border-gray-200 px-8 py-4 shrink-0 flex justify-between items-center shadow-sm relative z-10">
+            <div>
+                <h1 class="text-2xl font-black text-slate-800 tracking-tight">Computer Fundamentals</h1>
+                <p class="text-slate-500 text-sm">Interactive Academic Submission • 8 Comprehensive Modules</p>
+            </div>
+            <div class="hidden md:flex items-center gap-3 bg-yellow-50/50 border border-yellow-100 px-4 py-2 rounded-lg">
+                <i class="fa-solid fa-graduation-cap text-yellow-600 text-xl"></i>
+                <div>
+                    <div class="text-xs font-bold text-yellow-900">NISHANT SINGH ZOOD (1826064)</div>
+                    <div class="text-[10px] text-yellow-600 uppercase">Assignment Complete ✓</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Page Container -->
+        <div class="flex-1 overflow-y-auto w-full relative">
+            
+            <!-- PAGE 0: DASHBOARD HOME -->
+            <div id="home" class="page-content active p-8 max-w-6xl mx-auto space-y-8">
+                <div class="bg-gradient-to-r from-yellow-700 via-yellow-800 to-amber-900 rounded-2xl p-10 text-white shadow-xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-4xl font-black mb-4">Welcome to the Assignment Dashboard</h2>
+                        <p class="text-yellow-100 text-lg max-w-2xl leading-relaxed">This digital portfolio explores the core fundamentals of computer science, hardware architecture, I/O peripherals, and systemic integration. Select a module from the sidebar to begin.</p>
+                    </div>
+                    <i class="fa-solid fa-microchip absolute -bottom-10 -right-10 text-[200px] text-white opacity-10 transform rotate-12"></i>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover cursor-pointer" onclick="switchPage('q1')">
+                        <div class="h-10 w-10 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center mb-4"><i class="fa-solid fa-bolt"></i></div>
+                        <h3 class="font-bold text-lg mb-1">Hardware Generations</h3>
+                        <p class="text-sm text-gray-500">Explore the 5 eras of computing technology.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover cursor-pointer" onclick="switchPage('q2')">
+                        <div class="h-10 w-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center mb-4"><i class="fa-solid fa-diagram-project"></i></div>
+                        <h3 class="font-bold text-lg mb-1">System Architecture</h3>
+                        <p class="text-sm text-gray-500">Deep dive into CPU, memory & system bus flows.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover cursor-pointer" onclick="switchPage('q4')">
+                        <div class="h-10 w-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-4"><i class="fa-solid fa-laptop-code"></i></div>
+                        <h3 class="font-bold text-lg mb-1">Programming Languages</h3>
+                        <p class="text-sm text-gray-500">Low-level vs High-level execution & translation.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm card-hover cursor-pointer" onclick="switchPage('q8')">
+                        <div class="h-10 w-10 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center mb-4"><i class="fa-solid fa-hands-holding-circle"></i></div>
+                        <h3 class="font-bold text-lg mb-1">Accessible Tech</h3>
+                        <p class="text-sm text-gray-500">Hands-free non-visual I/O workstation design.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 1: CHARACTERISTICS & GENERATIONS -->
+            <div id="q1" class="page-content bg-white min-h-full">
+                <!-- Inner Navigation Tabs -->
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-yellow-600 mr-2">Q1.</span> Characteristics & Hardware Across Generations</h2>
+                    <div class="flex gap-1 border-b-0">
+                        <button onclick="switchSubTab('q1', 'q1-t1')" id="btn-q1-t1" class="inner-tab active px-6 py-3 border-b-2 border-yellow-600 text-yellow-700 font-bold text-sm bg-white rounded-t-lg transition-colors">Four Characteristics</button>
+                        <button onclick="switchSubTab('q1', 'q1-t2')" id="btn-q1-t2" class="inner-tab px-6 py-3 border-b-2 border-transparent text-gray-600 font-medium text-sm hover:text-yellow-600 hover:bg-gray-100 rounded-t-lg transition-colors">Five Generations</button>
+                        <button onclick="switchSubTab('q1', 'q1-t3')" id="btn-q1-t3" class="inner-tab px-6 py-3 border-b-2 border-transparent text-gray-600 font-medium text-sm hover:text-yellow-600 hover:bg-gray-100 rounded-t-lg transition-colors">Tech Impact Analysis</button>
+                    </div>
+                </div>
+                
+                <!-- Inner Tab Content -->
+                <div class="p-8 max-w-5xl mx-auto">
+                    <!-- Q1 Tab 1 -->
+                    <div id="q1-t1" class="sub-tab-content q1-content active space-y-6">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-yellow-500 pl-3">Primary Characteristics of Modern Computers</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-yellow-50 rounded-xl p-6 border border-yellow-100 card-hover">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <div class="h-12 w-12 bg-yellow-600 text-white rounded-full flex items-center justify-center text-xl shadow-md"><i class="fa-solid fa-gauge-high"></i></div>
+                                    <h4 class="text-xl font-bold text-slate-800">1. Extraordinary Speed</h4>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">Modern processors calculate in nanoseconds (10⁻⁹ seconds) and picoseconds (10⁻¹² seconds). A contemporary digital computer can execute billions of instructions per second (BIPS). This speed allows real-time rendering, complex mathematical simulations, and instant network routing.</p>
+                            </div>
+                            <div class="bg-emerald-50 rounded-xl p-6 border border-emerald-100 card-hover">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <div class="h-12 w-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl shadow-md"><i class="fa-solid fa-bullseye"></i></div>
+                                    <h4 class="text-xl font-bold text-slate-800">2. Flawless Accuracy</h4>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">Computers are 100% accurate, provided the input data and programmed instructions are correct. Hardware logic gates do not make spontaneous errors. Faults are strictly attributed to human programming logic or corrupted data inputs, known as GIGO (Garbage In, Garbage Out).</p>
+                            </div>
+                            <div class="bg-purple-50 rounded-xl p-6 border border-purple-100 card-hover">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <div class="h-12 w-12 bg-purple-600 text-white rounded-full flex items-center justify-center text-xl shadow-md"><i class="fa-solid fa-battery-full"></i></div>
+                                    <h4 class="text-xl font-bold text-slate-800">3. Diligence (No Fatigue)</h4>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">Unlike human biology, computer hardware is immune to tiredness, lack of concentration, and boredom. A computer can run a highly complex loop millions of times, performing the final iteration with the exact same precision and speed as the very first.</p>
+                            </div>
+                            <div class="bg-orange-50 rounded-xl p-6 border border-orange-100 card-hover">
+                                <div class="flex items-center gap-4 mb-3">
+                                    <div class="h-12 w-12 bg-orange-600 text-white rounded-full flex items-center justify-center text-xl shadow-md"><i class="fa-solid fa-layer-group"></i></div>
+                                    <h4 class="text-xl font-bold text-slate-800">4. High Versatility</h4>
+                                </div>
+                                <p class="text-slate-600 text-sm leading-relaxed">They are entirely program-driven machines. The exact same hardware can calculate payroll spreadsheets, render 3D architectural models, play multimedia, and host web servers simply by loading a different sequence of instructions into the memory.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Q1 Tab 2 -->
+                    <div id="q1-t2" class="sub-tab-content q1-content space-y-6">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-yellow-500 pl-3">The Five Generations Timeline</h3>
+                        <div class="relative border-l-2 border-slate-200 ml-4 space-y-8 pb-4">
+                            <!-- Gen 1 -->
+                            <div class="relative pl-8">
+                                <div class="absolute w-6 h-6 bg-yellow-600 rounded-full -left-[13px] border-4 border-white top-1"></div>
+                                <h4 class="text-lg font-bold text-slate-800">First Generation (1940-1956): Vacuum Tubes</h4>
+                                <p class="text-sm font-semibold text-yellow-600 mb-2">Hardware: Vacuum Tubes & Magnetic Drums</p>
+                                <p class="text-sm text-slate-600">Massive machines (like ENIAC) filling entire rooms. They generated enormous heat, required massive electricity, and frequently blew out tubes. Input was via punch cards, output via printouts. Programming relied strictly on 0s and 1s (Machine Language).</p>
+                            </div>
+                            <!-- Gen 2 -->
+                            <div class="relative pl-8">
+                                <div class="absolute w-6 h-6 bg-yellow-600 rounded-full -left-[13px] border-4 border-white top-1"></div>
+                                <h4 class="text-lg font-bold text-slate-800">Second Generation (1956-1963): Transistors</h4>
+                                <p class="text-sm font-semibold text-yellow-600 mb-2">Hardware: Transistors & Magnetic Cores</p>
+                                <p class="text-sm text-slate-600">Transistors replaced fragile vacuum tubes, allowing computers to become smaller, faster, and much more energy-efficient. Assembly languages were developed, allowing programmers to use mnemonic codes instead of pure binary.</p>
+                            </div>
+                            <!-- Gen 3 -->
+                            <div class="relative pl-8">
+                                <div class="absolute w-6 h-6 bg-yellow-600 rounded-full -left-[13px] border-4 border-white top-1"></div>
+                                <h4 class="text-lg font-bold text-slate-800">Third Generation (1964-1971): Integrated Circuits</h4>
+                                <p class="text-sm font-semibold text-yellow-600 mb-2">Hardware: Silicon Integrated Circuits (ICs)</p>
+                                <p class="text-sm text-slate-600">Transistors were miniaturized and placed on silicon chips (semiconductors). This drastically increased speed. Users began interacting via keyboards and monitors, interfacing with an Operating System rather than punch cards.</p>
+                            </div>
+                            <!-- Gen 4 -->
+                            <div class="relative pl-8">
+                                <div class="absolute w-6 h-6 bg-yellow-600 rounded-full -left-[13px] border-4 border-white top-1"></div>
+                                <h4 class="text-lg font-bold text-slate-800">Fourth Generation (1971-Present): Microprocessors</h4>
+                                <p class="text-sm font-semibold text-yellow-600 mb-2">Hardware: VLSI Microprocessors</p>
+                                <p class="text-sm text-slate-600">Thousands of integrated circuits were built onto a single silicon chip (Very Large Scale Integration). This era birthed the Personal Computer (PC), Graphic User Interfaces (GUI), and networking, eventually leading to the Internet.</p>
+                            </div>
+                            <!-- Gen 5 -->
+                            <div class="relative pl-8">
+                                <div class="absolute w-6 h-6 bg-yellow-600 rounded-full -left-[13px] border-4 border-white top-1"></div>
+                                <h4 class="text-lg font-bold text-slate-800">Fifth Generation (Present & Beyond): AI</h4>
+                                <p class="text-sm font-semibold text-yellow-600 mb-2">Hardware: ULSI, Quantum, Parallel Processing</p>
+                                <p class="text-sm text-slate-600">Ultra Large Scale Integration. Systems based on Artificial Intelligence capable of natural language recognition, self-learning (machine learning algorithms), and complex neural networks. Uses massive parallel processing across multiple cores/GPUs.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Q1 Tab 3 -->
+                    <div id="q1-t3" class="sub-tab-content q1-content space-y-6">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-yellow-500 pl-3">Evolutionary Impact Analysis</h3>
+                        <table class="w-full text-left bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <thead class="bg-slate-100 border-b border-gray-200 text-slate-700">
+                                <tr>
+                                    <th class="p-4 font-bold">Generation</th>
+                                    <th class="p-4 font-bold">Physical Size</th>
+                                    <th class="p-4 font-bold">Software Paradigm</th>
+                                    <th class="p-4 font-bold">Cost & Accessibility</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-sm">
+                                <tr>
+                                    <td class="p-4 font-bold text-slate-800">1st (Tubes)</td>
+                                    <td class="p-4">Room-sized (30+ tons)</td>
+                                    <td class="p-4">Machine code (Binary)</td>
+                                    <td class="p-4 text-red-600 font-medium">Military / Government only</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold text-slate-800">2nd (Transistors)</td>
+                                    <td class="p-4">Large cabinets</td>
+                                    <td class="p-4">Assembly (Mnemonics)</td>
+                                    <td class="p-4">Large Corporations / Univ.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold text-slate-800">3rd (ICs)</td>
+                                    <td class="p-4">Minicomputers (Desk size)</td>
+                                    <td class="p-4">High-Level (COBOL, FORTRAN)</td>
+                                    <td class="p-4">Medium Businesses</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold text-slate-800">4th (Microchip)</td>
+                                    <td class="p-4">Desktop / Laptop / Phone</td>
+                                    <td class="p-4">GUI, Object-Oriented, Web</td>
+                                    <td class="p-4 text-green-600 font-medium">Ubiquitous / Personal Use</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: ARCHITECTURE BLOCK DIAGRAM -->
+            <div id="q2" class="page-content bg-white min-h-full">
+                <!-- Inner Navigation -->
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-emerald-600 mr-2">Q2.</span> Architecture & Data Flow</h2>
+                    <div class="flex gap-1 border-b-0">
+                        <button onclick="switchSubTab('q2', 'q2-t1')" id="btn-q2-t1" class="inner-tab active px-6 py-3 border-b-2 border-emerald-600 text-emerald-700 font-bold text-sm bg-white rounded-t-lg transition-colors">Functional Block Diagram</button>
+                        <button onclick="switchSubTab('q2', 'q2-t2')" id="btn-q2-t2" class="inner-tab px-6 py-3 border-b-2 border-transparent text-gray-600 font-medium text-sm hover:text-emerald-600 hover:bg-gray-100 rounded-t-lg transition-colors">Signal Flow Deep Dive</button>
+                    </div>
+                </div>
+                
+                <div class="p-8 max-w-5xl mx-auto">
+                    <!-- Q2 Tab 1 -->
+                    <div id="q2-t1" class="sub-tab-content q2-content active space-y-6">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-emerald-500 pl-3">Von Neumann Architecture Diagram</h3>
+                        
+                        <!-- Visual Diagram Area -->
+                        <div class="bg-slate-50 p-8 rounded-xl border-2 border-dashed border-gray-300 relative overflow-hidden">
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                                <!-- Input -->
+                                <div class="w-40 bg-white border border-slate-300 rounded-lg p-5 text-center shadow-md">
+                                    <i class="fa-solid fa-keyboard text-3xl text-slate-500 mb-2"></i>
+                                    <h4 class="font-bold text-sm">Input Interface</h4>
+                                    <p class="text-[10px] text-gray-500 mt-1">Feeds raw data & code</p>
+                                </div>
+                                
+                                <!-- Core -->
+                                <div class="flex-1 flex flex-col items-center gap-6 w-full">
+                                    <div class="w-full max-w-sm bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 text-center shadow-sm">
+                                        <h4 class="font-bold text-yellow-900">Primary Memory Unit (RAM)</h4>
+                                        <p class="text-xs text-yellow-700">Stores executing programs & current data</p>
+                                    </div>
+                                    
+                                    <div class="w-full max-w-sm bg-slate-800 text-white border border-slate-900 rounded-xl p-5 shadow-lg relative">
+                                        <h4 class="font-bold text-lg text-center mb-4">Central Processing Unit (CPU)</h4>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div class="bg-slate-700 rounded p-3 text-center border-l-4 border-red-500">
+                                                <div class="font-bold text-sm text-red-100">Control Unit</div>
+                                                <div class="text-[10px] text-red-300">Generates timing</div>
+                                            </div>
+                                            <div class="bg-slate-700 rounded p-3 text-center border-l-4 border-teal-500">
+                                                <div class="font-bold text-sm text-teal-100">ALU</div>
+                                                <div class="text-[10px] text-teal-300">Logic & Math</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="w-full max-w-sm bg-gray-200 border border-gray-300 rounded-lg p-3 text-center shadow-inner">
+                                        <h4 class="font-bold text-xs text-gray-700">Secondary Storage (HDD/SSD)</h4>
+                                    </div>
+                                </div>
+
+                                <!-- Output -->
+                                <div class="w-40 bg-white border border-slate-300 rounded-lg p-5 text-center shadow-md">
+                                    <i class="fa-solid fa-display text-3xl text-slate-500 mb-2"></i>
+                                    <h4 class="font-bold text-sm">Output Interface</h4>
+                                    <p class="text-[10px] text-gray-500 mt-1">Presents processed info</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Q2 Tab 2 -->
+                    <div id="q2-t2" class="sub-tab-content q2-content space-y-6">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-emerald-500 pl-3">Decoding the Bus System & Signal Flows</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Data -->
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="font-bold text-lg text-yellow-700">Data Bus Flow</h4>
+                                    <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded font-bold">Bidirectional <i class="fa-solid fa-arrows-left-right"></i></span>
+                                </div>
+                                <p class="text-sm text-slate-600 mb-4">Carries the actual raw data and compiled software instructions across the motherboard.</p>
+                                <ul class="text-xs text-slate-500 space-y-2 border-t border-gray-100 pt-3">
+                                    <li>• Moves raw input to RAM.</li>
+                                    <li>• Moves variables from RAM to CPU registers.</li>
+                                    <li>• Moves processed answers from CPU to Output.</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Address -->
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="font-bold text-lg text-purple-700">Address Bus Flow</h4>
+                                    <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded font-bold">Unidirectional <i class="fa-solid fa-arrow-right"></i></span>
+                                </div>
+                                <p class="text-sm text-slate-600 mb-4">Carries memory location pointers. The CPU must tell the RAM *where* to look for data.</p>
+                                <ul class="text-xs text-slate-500 space-y-2 border-t border-gray-100 pt-3">
+                                    <li>• Flows ONLY outwards from CPU to Memory.</li>
+                                    <li>• Size determines maximum RAM capacity (e.g., 32-bit bus = 4GB RAM max).</li>
+                                </ul>
+                            </div>
+
+                            <!-- Control -->
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="font-bold text-lg text-red-700">Control Signals</h4>
+                                    <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded font-bold">Command Link <i class="fa-solid fa-bolt"></i></span>
+                                </div>
+                                <p class="text-sm text-slate-600 mb-4">Generated strictly by the Control Unit (CU) to dictate operations to all connected hardware.</p>
+                                <ul class="text-xs text-slate-500 space-y-2 border-t border-gray-100 pt-3">
+                                    <li>• READ / WRITE commands to memory.</li>
+                                    <li>• Clock synchronization pulses.</li>
+                                    <li>• I/O interrupt handling flags.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: I/O CAMPUS AUTOMATION -->
+            <div id="q3" class="page-content bg-white min-h-full">
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-orange-600 mr-2">Q3.</span> Campus Automation Hardware</h2>
+                    <div class="flex gap-1 border-b-0">
+                        <button onclick="switchSubTab('q3', 'q3-t1')" id="btn-q3-t1" class="inner-tab active px-6 py-3 border-b-2 border-orange-600 text-orange-700 font-bold text-sm bg-white rounded-t-lg transition-colors">Optical Scanners (Library)</button>
+                        <button onclick="switchSubTab('q3', 'q3-t2')" id="btn-q3-t2" class="inner-tab px-6 py-3 border-b-2 border-transparent text-gray-600 font-medium text-sm hover:text-orange-600 hover:bg-gray-100 rounded-t-lg transition-colors">RFID Cards (Attendance)</button>
+                    </div>
+                </div>
+                
+                <div class="p-8 max-w-5xl mx-auto">
+                    <!-- Q3 Tab 1 -->
+                    <div id="q3-t1" class="sub-tab-content q3-content active space-y-6">
+                        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-8 items-center">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4">Barcode & OMR Scanning Systems</h3>
+                                <p class="text-slate-600 mb-4 leading-relaxed">Optical data scanners use lasers or LEDs to read physical patterns (lines or filled bubbles) and convert light reflections into digital strings. For a university library, every book is tagged with a unique barcode (ISBN or catalog ID).</p>
+                                <div class="bg-orange-50 p-4 rounded-lg border border-orange-100">
+                                    <h4 class="font-bold text-orange-800 mb-2">Implementation Workflow:</h4>
+                                    <ol class="list-decimal pl-5 text-sm text-orange-900 space-y-1">
+                                        <li>Librarian uses an optical scanner on the book's spine.</li>
+                                        <li>The variance in light reflection decodes into a 13-digit ID.</li>
+                                        <li>The software queries the database, pulling up the book title.</li>
+                                        <li>Librarian scans the student's ID, instantly linking the asset to the user without typing a single character.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="w-64 shrink-0 text-center text-slate-300">
+                                <i class="fa-solid fa-barcode text-9xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q3 Tab 2 -->
+                    <div id="q3-t2" class="sub-tab-content q3-content space-y-6">
+                        <div class="bg-white p-8 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-8 items-center">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4">RFID Smart Card Readers</h3>
+                                <p class="text-slate-600 mb-4 leading-relaxed">Radio Frequency Identification (RFID) utilizes electromagnetic fields to automatically identify and track tags attached to student ID cards. Unlike optical scanners, RFID does not require direct line-of-sight.</p>
+                                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
+                                    <h4 class="font-bold text-yellow-800 mb-2">Automated Attendance Workflow:</h4>
+                                    <ol class="list-decimal pl-5 text-sm text-yellow-900 space-y-1">
+                                        <li>Students wear active/passive RFID ID lanyards.</li>
+                                        <li>An antenna array mounted on the classroom doorframe continuously emits a radio signal.</li>
+                                        <li>As a student walks through, the radio waves power the chip inside the card.</li>
+                                        <li>The card broadcasts its encrypted UID back to the reader.</li>
+                                        <li>The central server logs the timestamp and marks the student present instantly.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="w-64 shrink-0 text-center text-slate-300">
+                                <i class="fa-solid fa-wifi text-9xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: LANGUAGES -->
+            <div id="q4" class="page-content bg-white min-h-full">
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-purple-600 mr-2">Q4.</span> Programming Language Hierarchy</h2>
+                </div>
+                <div class="p-8 max-w-5xl mx-auto space-y-6">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-purple-500 pl-3">Low-Level vs High-Level Comparison</h3>
+                    <div class="overflow-x-auto bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-100 border-b border-gray-200">
+                                <tr>
+                                    <th class="p-4 font-bold text-slate-800">Criteria</th>
+                                    <th class="p-4 font-bold text-red-600">Machine Code (Low)</th>
+                                    <th class="p-4 font-bold text-orange-600">Assembly (Low)</th>
+                                    <th class="p-4 font-bold text-yellow-600">High-Level (C++, Java, Python)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-sm">
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Execution Speed</td>
+                                    <td class="p-4">Blistering fast. Zero translation delay.</td>
+                                    <td class="p-4">Extremely fast. Minimal assembler delay.</td>
+                                    <td class="p-4 text-slate-500">Slower. High overhead from compilers and runtimes.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Hardware Dependence</td>
+                                    <td class="p-4 text-red-600">100% Locked. x86 code fails on ARM.</td>
+                                    <td class="p-4 text-red-600">Locked to specific CPU architecture.</td>
+                                    <td class="p-4 text-green-600 font-bold">Independent. Portable across OS/Hardware.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Translation Engine</td>
+                                    <td class="p-4">None. (0s and 1s natively understood)</td>
+                                    <td class="p-4">Assembler</td>
+                                    <td class="p-4">Compiler (whole file) or Interpreter (line-by-line).</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Complexity & Syntax</td>
+                                    <td class="p-4">Incomprehensible to humans. Hard to debug.</td>
+                                    <td class="p-4">Requires deep knowledge of registers (MOV, ADD).</td>
+                                    <td class="p-4">English-like words (Print, If, While). Highly abstract.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="q5" class="page-content bg-white min-h-full">
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10"><h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-pink-600 mr-2">Q5.</span> Input Devices: Point-and-Draw vs Digitizers</h2></div>
+                <div class="p-8 max-w-5xl mx-auto space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm border-t-4 border-t-slate-400">
+                            <h3 class="font-bold text-xl text-slate-800 mb-2">Mouse / Trackball (Relative)</h3>
+                            <p class="text-sm text-slate-600 mb-4"><b>Coordinate Tracking:</b> Uses a relative delta grid. Moving the mouse sends a "move +X, +Y" signal. If you lift the mouse and put it down elsewhere, the cursor does not jump. <br><br><b>Pressure:</b> 1-bit binary (Clicked or not clicked).</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm border-t-4 border-t-pink-500">
+                            <h3 class="font-bold text-xl text-slate-800 mb-2">Graphics Tablet (Absolute)</h3>
+                            <p class="text-sm text-slate-600 mb-4"><b>Coordinate Tracking:</b> Maps the physical tablet 1:1 to the screen resolution. Touching the top-right of the pad teleports the cursor exactly to the top-right pixel. <br><br><b>Pressure:</b> 8,192 levels of pressure sensitivity via stylus EMR sensors, crucial for CAD line-weight and digital brush opacity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="q6" class="page-content bg-white min-h-full">
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10"><h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-cyan-600 mr-2">Q6.</span> Blueprint Technologies: Plotters vs Monitors/Printers</h2></div>
+                <div class="p-8 max-w-5xl mx-auto">
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 class="font-bold text-xl text-slate-800 mb-4">Verdict: UHD Monitors + Large-Format Printers Win</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Historically, civil engineers used <b>Drum Plotters</b> because mechanical pens provided infinite vector resolution for crisp blueprints. However, modern <b>Large-Format Inkjet Printers</b> spraying droplets at 2400 DPI now rival plotter precision. When paired with <b>UHD (4K/8K) Monitors</b>, engineers can zoom deeply into CAD nodes instantly without re-printing. Printers are faster, cheaper to maintain (no servos or dried pens), and can print full-color 3D architectural renders—something traditional line-plotters cannot do.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="q7" class="page-content bg-white min-h-full">
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10"><h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-rose-600 mr-2">Q7.</span> Biometrics in Noisy Environments</h2></div>
+                <div class="p-8 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 p-6 rounded-xl border border-red-200">
+                        <h3 class="font-bold text-lg text-red-900 mb-2">Voice Recognition (Critical Fail)</h3>
+                        <p class="text-sm text-red-800">In high-ambient-noise public areas, microphones capture background acoustic interference, destroying the Signal-to-Noise Ratio (SNR). Furthermore, voice is highly vulnerable to AI deepfake audio cloning and physical health changes (e.g., sore throat).</p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-xl border border-green-200">
+                        <h3 class="font-bold text-lg text-green-900 mb-2">Facial Recognition (Operational Success)</h3>
+                        <p class="text-sm text-green-800">Optical sensors are entirely immune to audio noise. A camera functions perfectly in a screaming crowd. To defeat photo-spoofing vulnerabilities, modern facial scanners use IR (Infrared) depth-mapping to ensure 3D topological "liveness."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="q8" class="page-content bg-white min-h-full">
+                <div class="border-b border-gray-200 bg-slate-50 px-8 pt-4 sticky top-0 z-10"><h2 class="text-xl font-bold text-slate-800 mb-4"><span class="text-yellow-600 mr-2">Q8.</span> Accessible Hands-Free Workstation</h2></div>
+                <div class="p-8 max-w-5xl mx-auto space-y-6">
+                    <div class="bg-slate-800 text-white p-8 rounded-xl shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">Non-Visual System Integration Loop</h3>
+                        <div class="flex items-center gap-4 text-sm justify-center py-6">
+                            <div class="text-center"><div class="bg-slate-700 p-4 rounded-full mb-2"><i class="fa-solid fa-microphone text-2xl"></i></div><b>Input:</b> Voice Command</div>
+                            <i class="fa-solid fa-arrow-right text-slate-500 text-xl"></i>
+                            <div class="text-center"><div class="bg-slate-700 p-4 rounded-full mb-2"><i class="fa-solid fa-microchip text-2xl"></i></div><b>Process:</b> Screen Reader</div>
+                            <i class="fa-solid fa-arrow-right text-slate-500 text-xl"></i>
+                            <div class="text-center"><div class="bg-slate-700 p-4 rounded-full mb-2"><i class="fa-solid fa-braille text-2xl"></i></div><b>Output:</b> Braille Display & Voice Synth</div>
+                        </div>
+                        <p class="text-slate-300 text-sm border-t border-slate-600 pt-4 mt-4">The workstation replaces the monitor and mouse entirely. The user dictates OS commands via microphone. The screen reading software parses the graphical UI into text, pushing it simultaneously to an audio synthesizer (read aloud) and a refreshable Braille pin-display below the keyboard for tactile reading.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Main page switcher
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
+            // Reset main nav buttons
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('active', 'bg-yellow-50', 'text-yellow-700', 'border-yellow-600');
+                el.classList.add('text-gray-600', 'hover:bg-gray-50', 'border-transparent');
+            });
+            
+            // Show target page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Highlight active button
+            let btn = document.getElementById('btn-' + pageId);
+            btn.classList.remove('text-gray-600', 'hover:bg-gray-50', 'border-transparent');
+            btn.classList.add('active', 'bg-yellow-50', 'text-yellow-700', 'border-yellow-600');
+            
+            // Scroll container to top
+            document.querySelector('.overflow-y-auto').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inner tab switcher
+        function switchSubTab(parentQ, tabId) {
+            // Hide all sub-tabs inside this specific question
+            document.querySelectorAll('.' + parentQ + '-content').forEach(el => el.classList.remove('active'));
+            
+            // Reset all buttons inside this question's header
+            document.getElementById(parentQ).querySelectorAll('.inner-tab').forEach(el => {
+                el.classList.remove('active', 'border-yellow-600', 'border-emerald-600', 'border-orange-600', 'text-yellow-700', 'text-emerald-700', 'text-orange-700', 'bg-white');
+                el.classList.add('border-transparent', 'text-gray-600', 'hover:bg-gray-100');
+            });
+            
+            // Show specific sub-tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Highlight specific sub-tab button (color matching based on Q prefix)
+            let btn = document.getElementById('btn-' + tabId);
+            btn.classList.remove('border-transparent', 'text-gray-600', 'hover:bg-gray-100');
+            
+            if(parentQ === 'q1') btn.classList.add('active', 'border-yellow-600', 'text-yellow-700', 'bg-white');
+            if(parentQ === 'q2') btn.classList.add('active', 'border-emerald-600', 'text-emerald-700', 'bg-white');
+            if(parentQ === 'q3') btn.classList.add('active', 'border-orange-600', 'text-orange-700', 'bg-white');
+        }
+    </script>
+</body>
+</html>
